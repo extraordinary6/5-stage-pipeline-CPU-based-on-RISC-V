@@ -1,0 +1,109 @@
+addi x31,x0,0;
+addi x1,x0,8 ;
+add  x2,x0,x1;
+addi x3,x0,7 ;
+sub  x4,x2,x3;
+addi x5,x0,15;
+and  x6,x5,x4;
+or   x7,x5,x4;
+xor  x8,x5,x4;
+addi x1,x0,1
+addi x9,x0,8
+addi x10,x0,0
+addi x11,x0,1
+loop:
+sll  x11,x11,x1
+addi x10,x10,1
+blt  x10,x9,loop
+lw   x12,0(x2)
+sw   x11,0(x0)
+
+	
+
+addi x1,x0,0	
+addi x2,x0,16	
+addi x3,x0,32	
+addi x4,x0,0	
+addi x5,x0,0	
+addi x6,x0,0	
+addi x9,x0,0	
+addi x7,x0,4	
+addi x12,x0,2	
+addi x13,x0,2	
+mul  x8,x13,x7	
+addi x10,x0,0
+outer:
+addi x11,x0,0
+inner:
+addi x14,x0,0
+inest:
+mul x20,x8,x10	
+mul x21,x7,x14
+add x22,x21,x20
+add x4,x22,x1
+lw  x4,0(x4)			
+mul x23,x8,x14
+mul x24,x7,x11
+add x25,x23,x24
+add x5,x25,x2
+lw  x5,0(x5)			
+mul x9,x5,x4
+add x6,x6,x9
+addi x14,x14,1
+blt x14,x13,inest
+mul x26,x8,x10
+mul x27,x7,x11
+add x28,x26,x27
+add x28,x28,x3
+sw x6,0(x28)
+addi x6,x0,0
+addi x11,x11,1
+blt x11,x13,inner
+addi x10,x10,1
+blt x10,x12,outer
+
+
+addi x30,x30,0;
+addi x31,x0,4;
+addi x10,x0,1;
+
+outerloop:
+    addi x1,x0,0
+    addi x2,x0,0
+
+innerloop:
+    lw x3, 0(x30)          
+    lw x4, 4(x30)         
+    blt x4, x3, swap       
+
+    addi x30, x30, 4        
+    addi x2, x2, 1        
+    blt x2, x31, innerloop 
+
+    beq x1,x0,exit          
+
+addi x30,x0,0       
+addi x2,x0,0             
+jal x0, outerloop      
+
+swap:
+    sw x3, 4(x30)        
+    sw x4, 0(x30)
+    addi x1, x0, 1              
+    jal x0, innerloop  
+
+exit:
+	addi x24,x0,1
+	
+	
+
+
+addi x1,x0,2
+addi x0,x0,0
+addi x2,x1,3
+addi x3,x0,2
+add x4,x3,x1
+add x4,x3,x2
+addi x4,x4,1
+lw  x5, 0(x4)
+sw  x1, 9(x5)

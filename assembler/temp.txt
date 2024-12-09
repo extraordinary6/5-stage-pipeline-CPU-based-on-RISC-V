@@ -1,0 +1,40 @@
+addi x1,x0,1
+addi x1,x1,2
+addi x1,x1,3
+addi x1,x1,4
+addi x20, x0, -16
+addi x30,x30,0;
+addi x31,x0,4;
+addi x10,x0,1;
+srl	 x20,x20,x10;
+
+outerloop:
+    addi x1,x0,0
+    addi x2,x0,0
+
+innerloop:
+    lw x3, 0(x30)          
+    lw x4, 4(x30)         
+    blt x4, x3, swap       
+
+    addi x30, x30, 4        
+    addi x2, x2, 1        
+    blt x2, x31, innerloop 
+
+    beq x1,x0,exit          
+
+addi x30,x0,0       
+addi x2,x0,0             
+jal x0, outerloop      
+
+swap:
+    sw x3, 4(x30)        
+    sw x4, 0(x30)
+    addi x1, x0, 1              
+    jal x0, innerloop  
+
+exit:
+	addi x24,x0,1
+	
+	
+
